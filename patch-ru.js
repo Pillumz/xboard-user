@@ -86,6 +86,20 @@ for (const key of Object.keys(koObj)) {
   // Always JSON.stringify both key and value for safety (handles commas, quotes, etc.)
   parts.push(JSON.stringify(key) + ':' + JSON.stringify(val));
 }
+
+// Inject extra keys from ru-RU.json that aren't in the ko-KR block
+// (newer upstream $t() keys missing from all locale blocks)
+let extraCount = 0;
+for (const key of Object.keys(ru)) {
+  if (!koObj.hasOwnProperty(key)) {
+    parts.push(JSON.stringify(key) + ':' + JSON.stringify(ru[key]));
+    extraCount++;
+  }
+}
+if (extraCount > 0) {
+  console.log('Injected ' + extraCount + ' extra keys from ru-RU.json not in ko-KR block');
+}
+
 const ruJs = '{' + parts.join(',') + '}';
 
 // Verify it's valid JS
