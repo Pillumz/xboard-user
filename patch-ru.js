@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 //
-// Patches xboard-user umi.js bundle: replaces ko-KR locale with ru-RU.
+// Patches xboard-user umi.js bundle: replaces ko-KR locale with ru-RU,
+// and applies Fortochka orange theme.
 //
 // What it does:
 //   1. Finds the ko-KR translation block (Chinese keys → Korean values) and
@@ -8,7 +9,9 @@
 //   2. Replaces the NaiveUI ko-KR component locale (date formats, buttons, etc.)
 //   3. Renames "ko-KR" → "ru-RU" everywhere and "한국어" → "Русский"
 //   4. Changes default locale fallback from zh-CN to ru-RU
-//   5. Regenerates .br and .gz compressed bundles
+//   5. Replaces route meta titles with Russian
+//   6. Replaces default theme color preset (teal → warm orange #ff6000)
+//   7. Regenerates .br and .gz compressed bundles
 //
 // Usage:
 //   node patch-ru.js              # patch assets/umi.js in place
@@ -182,7 +185,31 @@ if (bundle.includes(oldDetect)) {
   console.warn('WARNING: Could not find locale detection code — default language not changed');
 }
 
-// ── 6. Write bundle and regenerate compressed variants ──────────────────────
+// ── 6. Replace default theme preset (teal → warm orange + warm stone base) ──
+
+const oldDefaultCommon = 'common:{primaryColor:"#316C72FF",primaryColorHover:"#316C72E3",primaryColorPressed:"#2B4C59FF",primaryColorSuppl:"#316C72E3",infoColor:"#316C72FF",infoColorHover:"#316C72E3",infoColorPressed:"#2B4C59FF",infoColorSuppl:"#316C72E3",successColor:"#18A058FF",successColorHover:"#36AD6AFF",successColorPressed:"#0C7A43FF",successColorSuppl:"#36AD6AFF",warningColor:"#F0A020FF",warningColorHover:"#FCB040FF",warningColorPressed:"#C97C10FF",warningColorSuppl:"#FCB040FF",errorColor:"#D03050FF",errorColorHover:"#DE576DFF",errorColorPressed:"#AB1F3FFF",errorColorSuppl:"#DE576DFF"}}';
+
+const newDefaultCommon = 'common:{' +
+  // Orange primary + info
+  'primaryColor:"#FF6000FF",primaryColorHover:"#FF7A2EFF",primaryColorPressed:"#CC4D00FF",primaryColorSuppl:"#FF7A2EFF",' +
+  'infoColor:"#FF6000FF",infoColorHover:"#FF7A2EFF",infoColorPressed:"#CC4D00FF",infoColorSuppl:"#FF7A2EFF",' +
+  // Keep standard success/warning/error
+  'successColor:"#18A058FF",successColorHover:"#36AD6AFF",successColorPressed:"#0C7A43FF",successColorSuppl:"#36AD6AFF",' +
+  'warningColor:"#F0A020FF",warningColorHover:"#FCB040FF",warningColorPressed:"#C97C10FF",warningColorSuppl:"#FCB040FF",' +
+  'errorColor:"#D03050FF",errorColorHover:"#DE576DFF",errorColorPressed:"#AB1F3FFF",errorColorSuppl:"#DE576DFF"' +
+  // Base colors handled via CSS (html.dark selector) to avoid breaking light mode
+  '}}';
+
+if (bundle.includes(oldDefaultCommon)) {
+  bundle = bundle.replace(oldDefaultCommon, newDefaultCommon);
+  console.log('Replaced default theme: teal → orange + warm stone palette');
+} else if (bundle.includes('primaryColor:"#FF6000FF"')) {
+  console.log('Default theme already patched');
+} else {
+  console.warn('WARNING: Could not find default theme common block — theme not changed');
+}
+
+// ── 7. Write bundle and regenerate compressed variants ──────────────────────
 
 fs.writeFileSync(BUNDLE, bundle);
 console.log('Wrote', BUNDLE, '(' + (bundle.length / 1024).toFixed(0) + ' KB)');

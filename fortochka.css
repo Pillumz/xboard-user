@@ -1,0 +1,164 @@
+/* Fortochka warm stone palette */
+/* Applied via html.dark class (VueUse useDark) */
+
+/* Warm light mode (stone cream palette) */
+html:not(.dark) {
+  --fortochka-bg: #f9f7f4;
+  --fortochka-card: #ffffff;
+  --fortochka-sidebar: #faf9f7;
+  --fortochka-text: #1c1917;
+  --fortochka-text-secondary: #78716c;
+  --fortochka-border: #e7e5e4;
+  --fortochka-hover: rgba(255, 96, 0, 0.06);
+  --fortochka-table-header: #f5f4f2;
+  --fortochka-table-stripe: #faf9f7;
+  --fortochka-table-border: #e7e5e4;
+}
+
+/* Warm dark mode (stone charcoal palette) */
+html.dark {
+  --fortochka-bg: #1a1816;
+  --fortochka-card: #282420;
+  --fortochka-sidebar: #161412;
+  --fortochka-text: #faf8f6;
+  --fortochka-text-secondary: #a8a29e;
+  --fortochka-border: #44403c;
+  --fortochka-hover: rgba(255, 96, 0, 0.08);
+  --fortochka-table-header: #222018;
+  --fortochka-table-stripe: #1f1c19;
+  --fortochka-table-border: #3a3630;
+}
+
+/* Page background */
+body {
+  background-color: var(--fortochka-bg) !important;
+}
+
+/* NaiveUI layout sider (sidebar) */
+.n-layout-sider,
+.n-layout-sider-scroll-container {
+  background-color: var(--fortochka-sidebar) !important;
+}
+
+/* NaiveUI cards */
+.n-card {
+  background-color: var(--fortochka-card) !important;
+  border-color: var(--fortochka-border) !important;
+}
+
+/* NaiveUI layout content area */
+.n-layout {
+  background-color: var(--fortochka-bg) !important;
+}
+
+/* Header */
+.n-layout-header {
+  background-color: var(--fortochka-sidebar) !important;
+  border-color: var(--fortochka-border) !important;
+}
+
+/* Modals and drawers */
+.n-modal,
+.n-drawer,
+.n-drawer-body-content-wrapper {
+  background-color: var(--fortochka-card) !important;
+}
+
+/* Dividers */
+.n-divider {
+  border-color: var(--fortochka-border) !important;
+}
+
+/* Tag bar / footer */
+.n-layout-footer {
+  background-color: var(--fortochka-sidebar) !important;
+}
+
+/* Data tables — override NaiveUI CSS custom properties */
+.n-data-table {
+  --n-th-color: var(--fortochka-table-header) !important;
+  --n-td-color: var(--fortochka-card) !important;
+  --n-td-color-hover: var(--fortochka-hover) !important;
+  --n-td-color-striped: var(--fortochka-table-stripe) !important;
+  --n-th-color-hover: var(--fortochka-table-header) !important;
+  --n-border-color: var(--fortochka-table-border) !important;
+  --n-th-text-color: var(--fortochka-text-secondary) !important;
+  --n-td-text-color: var(--fortochka-text) !important;
+  background-color: var(--fortochka-card) !important;
+}
+
+html.dark .n-data-table .n-data-table-th,
+html.dark .n-data-table .n-data-table-th[data-col-key] {
+  background-color: #222018 !important;
+  border-color: #3a3630 !important;
+}
+
+html:not(.dark) .n-data-table .n-data-table-th,
+html:not(.dark) .n-data-table .n-data-table-th[data-col-key] {
+  background-color: #f5f4f2 !important;
+  border-color: #e7e5e4 !important;
+}
+
+html.dark .n-data-table .n-data-table-td {
+  background-color: #282420 !important;
+  border-color: #3a3630 !important;
+}
+
+html:not(.dark) .n-data-table .n-data-table-td {
+  background-color: #ffffff !important;
+  border-color: #e7e5e4 !important;
+}
+
+html.dark .n-data-table .n-data-table-tr:hover > .n-data-table-td {
+  background-color: rgba(255, 96, 0, 0.08) !important;
+}
+
+/* Popover and dropdown */
+.n-popover,
+.n-dropdown-menu {
+  background-color: var(--fortochka-card) !important;
+}
+
+/* Input fields */
+.n-input,
+.n-input__input-el {
+  background-color: var(--fortochka-bg) !important;
+}
+
+/* Tabs */
+.n-tabs-tab {
+  background-color: transparent !important;
+}
+
+/* Tag / badge backgrounds */
+html.dark .n-tag {
+  background-color: #222018 !important;
+  border-color: #44403c !important;
+  color: #a8a29e !important;
+}
+
+html:not(.dark) .n-tag {
+  background-color: #f5f4f2 !important;
+  border-color: #e7e5e4 !important;
+}
+
+/* List items */
+.n-list,
+.n-list-item {
+  background-color: var(--fortochka-card) !important;
+}
+
+.n-list-item:not(:last-child) {
+  border-color: var(--fortochka-border) !important;
+}
+
+/* Scrollbar warm tint */
+html.dark ::-webkit-scrollbar-track {
+  background: #1a1816;
+}
+html.dark ::-webkit-scrollbar-thumb {
+  background: #44403c;
+}
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background: #57534e;
+}
