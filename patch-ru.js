@@ -171,6 +171,21 @@ for (const [zh, ruTitle] of Object.entries(routeTitles)) {
 }
 console.log('Replaced ' + titleCount + '/' + Object.keys(routeTitles).length + ' route meta titles');
 
+// ── 4b. Replace hardcoded Chinese strings not in translation block ─────────
+
+const hardcodedChinese = {
+  '$t("最后更新")': '$t("Обновлено")',
+};
+
+let hardcodedCount = 0;
+for (const [zh, ru] of Object.entries(hardcodedChinese)) {
+  if (bundle.includes(zh)) {
+    bundle = bundle.replaceAll(zh, ru);
+    hardcodedCount++;
+  }
+}
+console.log('Replaced ' + hardcodedCount + ' hardcoded Chinese strings');
+
 // ── 5. Change default locale fallback to ru-RU ─────────────────────────────
 
 const oldDetect = 'const e=navigator.language,t="zh-CN",o=YC.includes(e)?e:t';
